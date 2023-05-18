@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>Travel App</title>
+        <link href="/styles/style.css">
+        <link href="/styles/resets.css">
+    </head>
+
+    <body>
+
+        <header>
+            <div class="textBox">
+                <strong>Travel App</strong>
+            </div>
+            <div class="logoBox">
+                <img src="https://www.onlinelogomaker.com/blog/wp-content/uploads/2017/09/travel-logo-design.jpg" class="logo" alt="travel logo">
+            </div>
+            <div class="textBox">
+                <strong>Let's Go Somewhere New!</strong>
+            </div>
+        </header>
+
+        <main>
+            <section>
+                <form class="" onsubmit="return Client.handleSubmit(event)">
+                    <p class="desText">Enter in Destination City, Country and Date</p>
+                    <input id="inputPlace" type="text" name="input" value="" placeholder="Madrid, Spain">
+                    <input type="date" name="date" id="date">
+                    <input type="submit" name="" value="submit" class="submitButton" onclick="return Client.handleSubmit(event)" onsubmit="return handleSubmit(event)">
+                </form>
+            </section>
+
+            <section id="resultsBox">
+                <strong class="desResult">Destination Results:</strong>
+                <div id="results"></div>
+            </section>
+        </main>
+        
+        <script type="text/javascript" src="./src/client/index.js"></script>
+        <!-- <script>
+            window.onload = Client.handleSubmit('webpack');
+            window.onload = Client.checkForName('webpack');
+        </script> -->
+        
+        <footer>
+            <img src="https://img.freepik.com/free-vector/flat-design-boho-sun-logo-template_23-2149733210.jpg?w=826&t=st=1684092045~exp=1684092645~hmac=af7ffb0607ee082b9c2943be89bd397bd07ab3496ce9202b64681fee40919cf0" class="sunLogo" alt="third eye sunshine">
+        </footer>
+       
+        <!-- <script>
+            // Check that service worker are supported
+            if('serviceWorker' in navigator) {
+                // Use the window load event to keep the page load performant
+                window.addEventListener('load', () => {
+                    navigator.serviceWorker.register('/service-worker.js');
+                });
+            }
+        </script> -->
+        
+    </body>
+</html>

@@ -1,0 +1,97 @@
+header {
+    display: column;
+    padding: 0px 40px 40px 40px;
+    justify-content: center;
+    
+}
+
+body {
+    display: block;
+    min-height: 100vh;
+    background-color: #f7f7f7;
+    text-align: center;
+}
+
+form {
+    border: 1px solid #545454;
+    border-radius: 3px;
+    padding: 40px;
+    background-color:#6B7A8F;
+    
+}
+
+input {
+    padding: 5px 20px;
+    width: 50%;
+    line-height: 16px;
+    margin: 10px 0;
+    
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    padding-top: 3px;
+    padding-bottom: 0px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #e1b382;
+    width: 100%;
+    text-align: center;
+}
+
+.logo {
+    width: 300px;
+    height: 300px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 50%;
+}
+
+.logoBox {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.textBox {
+    padding-top: 10px;
+    text-align: center;
+    font-size: 35px;
+    
+}
+
+.desText {
+    color: #f7f7f7;
+    font-size: 25px;
+    padding-bottom: 10px;
+}
+
+.submitButton {
+    font-size: 15px;
+    width: 20%;
+    display: flex;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.sunLogo {
+    width: 125px;
+    height: 125px;
+    border-radius: 50%;
+    align-items: center;
+}
+
+#resultsBox {
+    padding: 25px;
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+#results {
+    padding-top: 15px;
+
+}
