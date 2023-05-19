@@ -1,7 +1,6 @@
 function handleSubmit(event) {
     event.preventDefault()
 
-
     // const formdata = new FormData();
     // formdata.append("placename=", `${document.getElementById("inputPlace").value}`);
     // formdata.append("&username=", `${process.env.API_KEY_GEO}`);
@@ -37,10 +36,10 @@ function handleSubmit(event) {
         console.log(date)
           
         function isToday() {
-            let date = document.getElementById('date').value;
+            let date = document.getElementById("date").value;
               
-            var inpDate = new Date(date);
-            var currDate = new Date();
+            let inpDate = new Date(`${date}T00:00`);
+            let currDate = new Date();
               
             if(inpDate.setHours(0, 0, 0, 0) == 
                     currDate.setHours(0, 0, 0, 0))
@@ -59,43 +58,43 @@ function handleSubmit(event) {
         const secondResultArray = secondJsonData
         let convert = secondResultArray.data[0].app_temp 
         let converted = Math.round(convert * 9 / 5 + 32);
-
+        
         console.log(secondJsonData)
         console.log(secondResultArray.data[0].app_temp)
         console.log(converted)
 
-        const thirdResponse = await fetch("https://api.weatherbit.io/v2.0/forecast/daily?lat=" + `${resultArray.lat}` + "&lon=" + `${resultArray.lng}` + "&key=" + `${process.env.API_KEY_WEA}`, requestOptions)
-        //const thirdJsonData = await thirdResponse.json()
-        //const thirdResultArray = thirdJsonData
-        
-        console.log(thirdResponse)
+        // const thirdResponse = await fetch("https://api.weatherbit.io/v2.0/forecast/daily?lat=" + `${resultArray.lat}` + "&lon=" + `${resultArray.lng}` + "&key=" + `${process.env.API_KEY_WEA}`, requestOptions)
+        // const thirdJsonData = await thirdResponse.json()
+        // const thirdResultArray = thirdJsonData
+                
+        // console.log(thirdResponse)
+        // console.log(thirdResultArray)
+            
+        //const checkUsage = await fetch("https://api.weatherbit.io/v2.0/subscription/usage?key=" + `${process.env.API_KEY_WEA}`, requestOptions)
 
-        const checkUsage = await fetch("https://api.weatherbit.io/v2.0/subscription/usage?key=" + `${process.env.API_KEY_WEA}`, requestOptions)
-
-        console.log(checkUsage)
+        //console.log(checkUsage.body)
 
         const fourthResponse = await fetch("https://pixabay.com/api/?key=" + `${process.env.API_KEY_PIX}` + "&q=" + `${document.getElementById("inputPlace").value}`, requestOptions)
-        //const fourthJsonData = await fourthResponse.json()
-        //const fourthResultArray = fourthJsonData
+        const fourthJsonData = await fourthResponse.json()
+        const fourthResultArray = fourthJsonData
 
         console.log(fourthResponse)
-
+        console.log(fourthResultArray.hits[0])
+        
         const results = document.getElementById("results").innerHTML = 
                 ("Postal Code: " + resultArray.postalCode) + "<br />"
               + ("Country Code: " + resultArray.countryCode) + "<br />"
               + ("Current Weather: " + converted) + " Fahrenheit" + "<br />"
               + ("Forcasted Weather: " + converted) + " Fahrenheit" + "<br />"
-              //+ ("Inspiration: " + fourthResultArray) + "<br />"
+              + ("Inspiration: " + fourthResultArray.hits[0].fullHDURL) + "<br />"
               
               ;
             
             console.log(results);
 
     }
-
-        derp ();
+        derp();
 
 }
-
 
 export { handleSubmit }
