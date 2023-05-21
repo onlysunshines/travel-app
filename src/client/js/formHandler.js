@@ -59,7 +59,6 @@ function handleSubmit(event) {
         let convert = secondResultArray.data[0].app_temp 
         let converted = Math.round(convert * 9 / 5 + 32);
         
-        console.log(secondJsonData)
         console.log(secondResultArray.data[0].app_temp)
         console.log(converted)
 
@@ -67,7 +66,7 @@ function handleSubmit(event) {
         // const thirdJsonData = await thirdResponse.json()
         // const thirdResultArray = thirdJsonData
                 
-        // console.log(thirdResponse)
+        
         // console.log(thirdResultArray)
             
         //const checkUsage = await fetch("https://api.weatherbit.io/v2.0/subscription/usage?key=" + `${process.env.API_KEY_WEA}`, requestOptions)
@@ -78,15 +77,16 @@ function handleSubmit(event) {
         const fourthJsonData = await fourthResponse.json()
         const fourthResultArray = fourthJsonData
 
-        console.log(fourthResponse)
         console.log(fourthResultArray.hits[0])
+
+        let img = `<img src="${fourthResultArray.hits[0].fullHDURL}" class= "desImg" alt="destination img">`
         
         const results = document.getElementById("results").innerHTML = 
                 ("Postal Code: " + resultArray.postalCode) + "<br />"
               + ("Country Code: " + resultArray.countryCode) + "<br />"
               + ("Current Weather: " + converted) + " Fahrenheit" + "<br />"
-              + ("Forcasted Weather: " + converted) + " Fahrenheit" + "<br />"
-              + ("Inspiration: " + fourthResultArray.hits[0].fullHDURL) + "<br />"
+              + ("Forecasted Weather: " + converted) + " Fahrenheit" + "<br />"
+              + ("Inspiration: " + img) + "<br />"
               
               ;
             
