@@ -5,6 +5,7 @@
         <title>Travel App</title>
         <link href="/styles/style.css">
         <link href="/styles/resets.css">
+        <link href="/styles/slideshow.css">
     </head>
 
     <body>
@@ -22,6 +23,38 @@
         </header>
 
         <main>
+            <section>
+                <div class="slideshow-container">
+                    <div class="mySlides fade">
+                        <div class="numbertext">1 / 3</div>
+                        <img src="https://pixabay.com/get/g93ad6ab9c4032860ae1b58a642314a8bbd7f024675de7364fdb6d1b86267c974d3ae72a07fab0927d7e0d1e22a7ca68eb21c22ccc9b71ae27fd2cf742b901b61_1920.jpg" class="slideImage">
+                        <div class="text">Iceland</div>
+                    </div>
+
+                    <div class="mySlides fade">
+                        <div class="numbertext">2 / 3</div>
+                        <img src="https://pixabay.com/get/g2589d4de8c3318f8fff98e8624d347f8ffbf215a638b5ba73c207b34fa7f17b183d39227f288df3c12d8eb993721cff659e035d20fa9a9e0b3a7c96c170db895_1920.jpg" class="slideImage">
+                        <div class="text">Egypt</div>
+                    </div>
+
+                    <div class="mySlides fade">
+                        <div class="numbertext">3 / 3</div>
+                        <img src="https://pixabay.com/get/gd45d98870ea1b434dd2e3508d2692087ed67110551b59d38ae75646f178fcfb96c794166c2b5b4912a4baa528af8da8af4cc967cc4c62addcb460b6e4398aeac_1920.jpg" class="slideImage">
+                        <div class="text">Thailand</div>
+                    </div>
+
+                    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+                </div>
+                <br>
+
+                <div style="text-align:center">
+                    <span class="dot" onclick="currentSlide(1)"></span>
+                    <span class="dot" onclick="currentSlide(2)"></span>
+                    <span class="dot" onclick="currentSlide(3)"></span>
+                </div>
+            </section>
+
             <section>
                 <form class="" onsubmit="return Client.handleSubmit(event)">
                     <p class="desText">Enter in Destination City, Country and Date</p>
