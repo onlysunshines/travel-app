@@ -1,20 +1,13 @@
+// import { checkDate } from "./dateChecker";
+// import { historical } from "./historical";
+
 function handleSubmit(event) {
     event.preventDefault()
-
-    // const formdata = new FormData();
-    // formdata.append("placename=", `${document.getElementById("inputPlace").value}`);
-    // formdata.append("&username=", `${process.env.API_KEY_GEO}`);
-
-    let input = `${document.getElementById("inputPlace").value}`;
-    const user = `${process.env.API_KEY_GEO}`;
     
-    console.log(process.env.API_KEY_GEO);
     console.log(document.getElementById("inputPlace").value);
 
     const requestOptions = {
-      //mode: 'no-cors',
       method: 'POST',
-      //body: formdata,
       redirect: 'follow'
     };
     
@@ -22,79 +15,103 @@ function handleSubmit(event) {
         const response = await fetch("http://api.geonames.org/postalCodeSearchJSON?placename=" + `${document.getElementById("inputPlace").value}` + "&username=" + `${process.env.API_KEY_GEO}`, requestOptions)
         const jsonData = await response.json()
         const resultArray = jsonData.postalCodes[0];
-        
-        console.log(resultArray);
-        console.log(resultArray.postalCode);
-        console.log(resultArray.countryCode);
-        console.log(resultArray.lat);
-        console.log(resultArray.lng);
-        console.log(process.env.API_KEY_WEA)
-
-        let field = document.getElementById("date")
-        let date = new Date(field.value);
-
-        console.log(date)
           
-        function isToday() {
-            let date = document.getElementById("date").value;
-              
-            let inpDate = new Date(`${date}T00:00`);
-            let currDate = new Date();
-              
-            if(inpDate.setHours(0, 0, 0, 0) == 
-                    currDate.setHours(0, 0, 0, 0))
-            {
-                return console.log("trigger current weather api");
-            } 
-            else {
-                return console.log("trigger forecast weather api")
-            }         
-        }
-        
-        isToday();
+        let startDateInput = document.getElementById("startDate").value;
+        startDateInput = startDateInput.replace(/-/, '/')
+                                       .replace(/-/, '/');
 
-        const secondResponse = await fetch("https://api.weatherbit.io/v2.0/current?lat=" + `${resultArray.lat}` + "&lon=" + `${resultArray.lng}` + "&key=" + `${process.env.API_KEY_WEA}`, requestOptions)
+        let endDateInput = document.getElementById("endDate").value;
+        endDateInput = endDateInput.replace(/-/, '/')
+                                   .replace(/-/, '/');
+
+        console.log(startDateInput)
+        console.log(endDateInput)
+
+        let inpDate = new Date(`${startDateInput}`);
+        let currDate = new Date();
+            
+        let currDateConverted = currDate.getFullYear() + "/" + ("0" + (currDate.getMonth() + 1)).slice(-2) + "/" + currDate.getDate();
+        console.log(currDateConverted)
+
+        let timeDiff = inpDate.getTime() - currDate.getTime();
+        let daysDiff = timeDiff / (1000 * 60 * 60 * 24);
+
+        console.log(daysDiff)
+        console.log(Math.ceil(daysDiff))
+
+        const days = document.getElementById("days").innerHTML = 
+            (Math.ceil(daysDiff) + " Days Until Departure!") + "<br />";
+
+        console.log(inpDate)
+            
+        const secondResponse = await fetch("https://api.weatherbit.io/v2.0/current?lat=" + `${resultArray.lat}` + "&lon=" + `${resultArray.lng}` + "&units=I" + "&key=" + `${process.env.API_KEY_WEA_2}`, requestOptions)
         const secondJsonData = await secondResponse.json()
         const secondResultArray = secondJsonData
-        let convert = secondResultArray.data[0].app_temp 
-        let converted = Math.round(convert * 9 / 5 + 32);
+        const currentTemp = Math.round(secondResultArray.data[0].app_temp) 
+
+        const thirdResponse = await fetch("https://api.weatherbit.io/v2.0/forecast/daily?lat=" + `${resultArray.lat}` + "&lon=" + `${resultArray.lng}` + "&units=I" + "&days=16" + "&key=" + `${process.env.API_KEY_WEA_2}`, requestOptions)
+        const thirdJsonData = await thirdResponse.json()
+        const thirdResultArray = thirdJsonData
+        const forecast = thirdResultArray.data
+        const forecastArray = [];
+            for (let i = 0; i < forecast.length; i++) {
+                forecastArray.push(Math.round(forecast[i].app_max_temp))
+            }
         
-        console.log(secondResultArray.data[0].app_temp)
-        console.log(converted)
+        console.log(forecastArray)
+        console.log(thirdResultArray)
+        console.log(thirdResultArray.data[0])
+        console.log(thirdResultArray.data[0].datetime)
+        console.log(thirdResultArray.data[0].app_min_temp)
+        console.log(thirdResultArray.data[0].app_max_temp)
 
-        // const thirdResponse = await fetch("https://api.weatherbit.io/v2.0/forecast/daily?lat=" + `${resultArray.lat}` + "&lon=" + `${resultArray.lng}` + "&key=" + `${process.env.API_KEY_WEA}`, requestOptions)
-        // const thirdJsonData = await thirdResponse.json()
-        // const thirdResultArray = thirdJsonData
-                
-        
-        // console.log(thirdResultArray)
-            
-        //const checkUsage = await fetch("https://api.weatherbit.io/v2.0/subscription/usage?key=" + `${process.env.API_KEY_WEA}`, requestOptions)
+        function subtractYears(date, years) {
+            const dateCopy = new Date(date);
+          
+            dateCopy.setFullYear(dateCopy.getFullYear() - years);
+          
+            return dateCopy;
+          }
+          
+        const startDate = new Date(document.getElementById("startDate").value);
+        const endDate = new Date(document.getElementById("endDate").value);
+          
+        const startResult = subtractYears(startDate, 1);
+        const endResult = subtractYears(endDate, 1)
+ 
+        const apiStartResult = startResult.getFullYear() + "-" + ("0" + (startResult.getMonth() + 1)).slice(-2) + "-" + ("0" + (startResult.getDate())).slice(-2);
+        const apiEndResult = endResult.getFullYear() + "-" + ("0" + (endResult.getMonth() + 1)).slice(-2) + "-" + ("0" + (endResult.getDate())).slice(-2);
 
-        //console.log(checkUsage.body)
-
-        const fourthResponse = await fetch("https://pixabay.com/api/?key=" + `${process.env.API_KEY_PIX}` + "&q=" + `${document.getElementById("inputPlace").value}`, requestOptions)
+        const fourthResponse = await fetch("https://archive-api.open-meteo.com/v1/archive?latitude=" + `${resultArray.lat}` + "&longitude=" + `${resultArray.lng}` + "&start_date=" + `${apiStartResult}` + "&end_date=" + `${apiEndResult}` + "&daily=temperature_2m_max&timezone=auto&temperature_unit=fahrenheit")
         const fourthJsonData = await fourthResponse.json()
         const fourthResultArray = fourthJsonData
+        const historyDaily = fourthResultArray.daily.temperature_2m_max
+        const historyDailyArray = [];
+            for (let i = 0; i < historyDaily.length; i++) {
+                historyDailyArray.push(Math.round(historyDaily[i]))
+            }
 
-        console.log(fourthResultArray.hits[0])
+        console.log(historyDaily)
+        console.log(historyDailyArray)
+                  
+        const fifthResponse = await fetch("https://pixabay.com/api/?key=" + `${process.env.API_KEY_PIX}` + "&q=" + `${document.getElementById("inputPlace").value}`, requestOptions)
+        const fifthJsonData = await fifthResponse.json()
+        const fifthResultArray = fifthJsonData
 
-        let img = `<img src="${fourthResultArray.hits[0].fullHDURL}" class= "desImg" alt="destination img">`
+        let img = `<img src="${fifthResultArray.hits[0].fullHDURL}" class= "desImg" alt="destination img">`
         
         const results = document.getElementById("results").innerHTML = 
-                ("Postal Code: " + resultArray.postalCode) + "<br />"
-              + ("Country Code: " + resultArray.countryCode) + "<br />"
-              + ("Current Weather: " + converted) + " Fahrenheit" + "<br />"
-              + ("Forecasted Weather: " + converted) + " Fahrenheit" + "<br />"
-              + ("Inspiration: " + img) + "<br />"
-              
-              ;
+             ("Current Weather: " + currentTemp) + " Fahrenheit" + "<br />"
+            + ("16-Day Forecast Weather: " + forecastArray) + " Fahrenheit" + "<br />"
+            + ("Last Year Around This Time: " + historyDailyArray) + " Fahrenheit" + "<br />" 
+            + ("Inspiration: " + img) + "<br />";
             
             console.log(results);
-
     }
+    
         derp();
-
+        // checkDate();
+        // historical();
 }
 
 export { handleSubmit }
