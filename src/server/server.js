@@ -1,21 +1,11 @@
 // empty JS object endpoint for all routes
-projectData = {};
+let projectData = {};
 
 const path = require('path')
 const express = require('express')
 const cors = require("cors")
 const dotenv = require('dotenv');
 dotenv.config();
-
-console.log(`Your API key is ${process.env.API_KEY_GEO}`)
-console.log(`Your API key is ${process.env.API_KEY_WEA}`)
-console.log(`Your API key is ${process.env.API_KEY_PIX}`)
-
-
-// let textapi = ({
-//     application_key: process.env.API_KEY
-// });
-
 
 const app = express()
 
