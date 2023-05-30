@@ -27,6 +27,13 @@ function handleSubmit(event) {
         console.log(startDateInput)
         console.log(endDateInput)
 
+        let departing = new Date(`${startDateInput}`)
+        let returning = new Date(`${endDateInput}`)
+
+        const trip = departing.getDate() - returning.getDate()
+        console.log(Math.abs(trip) + 1)
+        const tripLength = (Math.abs(trip) + 1)
+
         let inpDate = new Date(`${startDateInput}`);
         let currDate = new Date();
             
@@ -43,13 +50,14 @@ function handleSubmit(event) {
             (Math.ceil(daysDiff) + " Days Until Departure!") + "<br />";
 
         console.log(inpDate)
+        console.log(days)
             
         const secondResponse = await fetch("https://api.weatherbit.io/v2.0/current?lat=" + `${resultArray.lat}` + "&lon=" + `${resultArray.lng}` + "&units=I" + "&key=" + `${process.env.API_KEY_WEA_2}`, requestOptions)
         const secondJsonData = await secondResponse.json()
         const secondResultArray = secondJsonData
         const currentTemp = Math.round(secondResultArray.data[0].app_temp) 
 
-        const thirdResponse = await fetch("https://api.weatherbit.io/v2.0/forecast/daily?lat=" + `${resultArray.lat}` + "&lon=" + `${resultArray.lng}` + "&units=I" + "&days=16" + "&key=" + `${process.env.API_KEY_WEA_2}`, requestOptions)
+        const thirdResponse = await fetch("https://api.weatherbit.io/v2.0/forecast/daily?lat=" + `${resultArray.lat}` + "&lon=" + `${resultArray.lng}` + "&units=I" + "&days=" + `${tripLength}` + "&key=" + `${process.env.API_KEY_WEA_2}`, requestOptions)
         const thirdJsonData = await thirdResponse.json()
         const thirdResultArray = thirdJsonData
         const forecast = thirdResultArray.data
@@ -100,11 +108,12 @@ function handleSubmit(event) {
 
         let img = `<img src="${fifthResultArray.hits[0].fullHDURL}" class= "desImg" alt="destination img">`
         
-        const results = document.getElementById("results").innerHTML = 
-             ("Current Weather: " + currentTemp) + " Fahrenheit" + "<br />"
-            + ("16-Day Forecast Weather: " + forecastArray) + " Fahrenheit" + "<br />"
-            + ("Last Year Around This Time: " + historyDailyArray) + " Fahrenheit" + "<br />" 
-            + ("Inspiration: " + img) + "<br />";
+        const results = document.getElementById("results").innerHTML =
+              ("Duration of Trip: " + tripLength) + " Days" + "<br />"
+            + ("Current Weather: " + currentTemp) + " °F" + "<br />"
+            + ("Weather Forecast: " + forecastArray) + " °F" + "<br />"
+            + ("Last Year Around This Time: " + historyDailyArray) + " °F" + "<br />" 
+            + (img) + "<br />";
             
             console.log(results);
     }
