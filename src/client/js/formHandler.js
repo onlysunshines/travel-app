@@ -1,6 +1,3 @@
-// import { checkDate } from "./dateChecker";
-// import { historical } from "./historical";
-
 function handleSubmit(event) {
     event.preventDefault()
     
@@ -119,8 +116,7 @@ function handleSubmit(event) {
     }
     
         derp();
-        // checkDate();
-        // historical();
+        
 }
 
 export { handleSubmit }
