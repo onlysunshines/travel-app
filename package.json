@@ -34,6 +34,7 @@
         "postcss-plugins": "^1.13.1",
         "sass": "^1.62.1",
         "sass-loader": "^13.2.2",
+        "service-worker-webpack": "^1.0.0",
         "style-loader": "^3.3.2",
         "terser-webpack-plugin": "^5.3.7",
         "webpack-dev-server": "^4.13.3"
