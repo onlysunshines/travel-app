@@ -6,7 +6,7 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const Dotenv = require('dotenv-webpack')
-//const WorkboxPlugin = require('workbox-webpack-plugin')
+const WorkboxPlugin = require('workbox-webpack-plugin')
 
 
 module.exports = {
@@ -45,7 +45,7 @@ module.exports = {
             protectWebpackAssets: false
         }),
         new Dotenv(),
-        //new WorkboxPlugin.GenerateSW()
+        new WorkboxPlugin.GenerateSW()
     ],
     optimization: {
         minimizer: [ new TerserPlugin({}), new OptimizeCssAssetsPlugin({}) ]
