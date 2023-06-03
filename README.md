@@ -1,10 +1,10 @@
 # Travel App Project
 
 ## Overview
-This project requires you to create an asynchronous web app that uses Web API and user data to dynamically update the UI. 
+This project allows the user to check the weather to make an informed decision about their next travel destination! 
 
-## Instructions
-This will require modifying the `server.js` file and the `website/app.js` file. You can see `index.html` for element references, and once you are finished with the project steps, you can use `style.css` to style your application to customized perfection.
+## Under the Hood
+I am using webpack to compile the code in a scalable way to make it easier to grow the application.  Jest tests to make sure things are working as intended and Service Workers so that the app has offline capabilities.
 
-## Extras
-If you are interested in testing your code as you go, you can use `tests.js` as a template for writing and running some basic tests for your code.
+## API Dependencies
+Pixabay, Geonames, Weatherbit and OpenMeteo
